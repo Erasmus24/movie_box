@@ -1,10 +1,14 @@
 import React from 'react';
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, Button } from 'react-native';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      <Text>Home Screen Beginning</Text>
+      <Text style={styles.title}>Home Screen</Text>
+      <Button 
+        title="Go to Movie Details" 
+        onPress={() => navigation.navigate('MovieDetail')} 
+      />
     </View>
   );
 }
@@ -14,5 +18,9 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'center',
     alignItems: 'center',
+  },
+  title: {
+    fontSize: 24,
+    fontWeight: 'bold',
   },
 });
