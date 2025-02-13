@@ -1,91 +1,59 @@
-import React, { useEffect } from 'react';
-import { View, Text, StyleSheet, FlatList, Image, ActivityIndicator, TouchableOpacity } from 'react-native';
-import { useDispatch, useSelector } from 'react-redux';
-import { fetchRandomMovies } from '../redux/movieSlice';
+import React, { useEffect, useState } from "react";
+import { View, FlatList, ActivityIndicator, Text, StyleSheet } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
+import { fetchRandomMovies } from "../redux/movieSlice";
+import MovieCard from "../components/MovieCard";
+import SearchBar from "../components/SearchBar";
 
-export default function HomeScreen({ navigation }) {
+const HomeScreen = () => {
   const dispatch = useDispatch();
-  const { movies, loading, error } = useSelector((state) => state.movies);
+  const { movies, loading } = useSelector((state) => state.movies);
+  const [searchQuery, setSearchQuery] = useState("");
 
   useEffect(() => {
     dispatch(fetchRandomMovies());
   }, [dispatch]);
 
-  if (loading) {
-    return (
-      <View style={styles.loadingContainer}>
-        <ActivityIndicator size="large" color="#0000ff" />
-      </View>
-    );
-  }
-
-  if (error) {
-    return (
-      <View style={styles.errorContainer}>
-        <Text style={styles.errorText}>Error: {error}</Text>
-      </View>
-    );
-  }
+  const filteredMovies = movies.filter((movie) =>
+    movie.title.toLowerCase().includes(searchQuery.toLowerCase())
+  );
 
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Movie Box</Text>
-      <FlatList
-        data={movies}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item }) => (
-          <TouchableOpacity style={styles.movieItem} onPress={() => navigation.navigate('MovieDetail', { movie: item })}>
-            <Image source={{ uri: item.image }} style={styles.poster} />
-            <Text style={styles.movieTitle}>{item.title}</Text>
-          </TouchableOpacity>
-        )}
-      />
+      <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
+      {loading ? (
+        <ActivityIndicator size="large" color="#0000ff" />
+      ) : (
+        <FlatList
+          data={filteredMovies}
+          keyExtractor={(item) => item.id}
+          renderItem={({ item }) => (
+            <MovieCard
+              title={item.title}
+              image={item.image}
+              description={item.description}
+            />
+          )}
+        />
+      )}
     </View>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 20,
-    backgroundColor: '#fff',
+    padding: 10,
+    backgroundColor: "#f5f5f5",
   },
   title: {
-    fontSize: 24,
-    fontWeight: 'bold',
-    marginBottom: 10,
-    textAlign: 'center',
-  },
-  loadingContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: 'center',
-    alignItems: 'center',
-  },
-  errorText: {
-    color: 'red',
-    fontSize: 16,
-  },
-  movieItem: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    marginBottom: 10,
-    backgroundColor: '#f0f0f0',
-    padding: 10,
-    borderRadius: 10,
-  },
-  poster: {
-    width: 50,
-    height: 75,
-    borderRadius: 5,
-    marginRight: 10,
-  },
-  movieTitle: {
-    fontSize: 16,
-    fontWeight: 'bold',
-  },
+    fontSize: 32,
+    fontWeight: "bold",
+    textAlign: "center",
+    marginBottom: 20,
+    paddingTop: 15,
+  }
 });
+
+export default HomeScreen;
