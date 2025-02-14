@@ -1,15 +1,19 @@
 import React from "react";
-import { View, Text, Image, StyleSheet } from "react-native";
+import { View, Text, Image, StyleSheet, TouchableOpacity } from "react-native";
 
-const MovieCard = ({ title, image, description }) => {
+const MovieCard = ({ movie, onPress }) => {
+  if (!movie || !movie.title) return null; 
+
   return (
-    <View style={styles.card}>
-      <Image source={{ uri: image }} style={styles.image} />
-      <Text style={styles.title}>{title}</Text>
-      <Text style={styles.description} numberOfLines={3}>
-        {description}
-      </Text>
-    </View>
+    <TouchableOpacity onPress={onPress}>
+      <View style={styles.card}>
+        <Image source={{ uri: movie.image }} style={styles.image} />
+        <Text style={styles.title}>{movie.title}</Text>
+        <Text style={styles.description} numberOfLines={3}>
+          {movie.description}
+        </Text>
+      </View>
+    </TouchableOpacity>
   );
 };
 

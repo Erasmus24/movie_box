@@ -5,7 +5,7 @@ import { fetchRandomMovies } from "../redux/movieSlice";
 import MovieCard from "../../components/MovieCard";
 import SearchBar from "../../components/SearchBar";
 
-const HomeScreen = () => {
+const HomeScreen = ({ navigation }) => { 
   const dispatch = useDispatch();
   const { movies, loading } = useSelector((state) => state.movies);
   const [searchQuery, setSearchQuery] = useState("");
@@ -20,19 +20,18 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>MovieBox</Text>
+      <Text style={styles.title}>Movie Box</Text>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
       ) : (
         <FlatList
           data={filteredMovies}
-          keyExtractor={(item) => item.id}
+          keyExtractor={(item, index) => index.toString()} 
           renderItem={({ item }) => (
             <MovieCard
-              title={item.title}
-              image={item.image}
-              description={item.description}
+              movie={item} 
+              onPress={() => navigation.navigate("MovieDetail", { movie: item })}
             />
           )}
         />
@@ -52,7 +51,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
     textAlign: "center",
     marginBottom: 10,
-    paddingTop: 15,
+    paddingTop: 3,
   },
 });
 
