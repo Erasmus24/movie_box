@@ -2,8 +2,8 @@ import React, { useEffect, useState } from "react";
 import { View, FlatList, ActivityIndicator, Text, StyleSheet } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchRandomMovies } from "../redux/movieSlice";
-import MovieCard from "../components/MovieCard";
-import SearchBar from "../components/SearchBar";
+import MovieCard from "../../components/MovieCard";
+import SearchBar from "../../components/SearchBar";
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
@@ -20,7 +20,7 @@ const HomeScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Movie Box</Text>
+      <Text style={styles.title}>MovieBox</Text>
       <SearchBar searchQuery={searchQuery} setSearchQuery={setSearchQuery} />
       {loading ? (
         <ActivityIndicator size="large" color="#0000ff" />
@@ -51,9 +51,9 @@ const styles = StyleSheet.create({
     fontSize: 32,
     fontWeight: "bold",
     textAlign: "center",
-    marginBottom: 20,
+    marginBottom: 10,
     paddingTop: 15,
-  }
+  },
 });
 
 export default HomeScreen;
