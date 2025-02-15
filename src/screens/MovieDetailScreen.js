@@ -34,72 +34,55 @@ const MovieDetailScreen = ({ route }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 15,
-    backgroundColor: "#fff",
-  },
-  image: {
-    width: "100%",
-    height: 400,
-    borderRadius: 10,
-  },
-  title: {
-    fontSize: 24,
-    fontWeight: "bold",
-    marginTop: 15,
-  },
-  description: {
-    fontSize: 16,
-    color: "#555",
-    marginTop: 10,
-  },
-  errorContainer: {
-    flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-  },
-  errorText: {
-    fontSize: 18,
-    color: "red",
-  },
-  actorsContainer: {
-    marginTop: 20,
-  },
-  actorsTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  actors: {
-    fontSize: 16,
-    color: "#555",
-    marginTop: 5,
-  },
-  reviewContainer: {
-    marginTop: 20,
-  },
-  reviewTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: "#333",
-  },
-  reviewBody: {
-    fontSize: 16,
-    color: "#555",
-    marginTop: 5,
-  },
-  reviewAuthor: {
-    fontSize: 14,
-    color: "#888",
-    marginTop: 5,
-  },
-  reviewTitleText: {
-    fontSize: 14,
-    fontWeight: "bold",
-    color: "#888",
-    marginTop: 5,
-  },
-});
+    container: {
+      flex: 1,
+      padding: 15,
+      backgroundColor: "#263238", 
+    },
+    image: {
+      width: "100%",
+      height: 400,
+      borderRadius: 10,
+      borderColor: "#90a4ae", 
+      borderWidth: 1,
+    },
+    title: {
+      fontSize: 24,
+      fontWeight: "bold",
+      color: "#b0bec5", 
+      marginTop: 15,
+    },
+    description: {
+      fontSize: 16,
+      color: "#90a4ae", 
+      marginTop: 10,
+    },
+    reviewTitle: {
+      fontSize: 18,
+      fontWeight: "bold",
+      color: "#78909c", 
+      marginTop: 15,
+    },
+    reviewAuthor: {
+      fontSize: 16,
+      color: "#607d8b", 
+      marginTop: 5,
+    },
+    reviewBody: {
+      fontSize: 16,
+      color: "#546e7a", 
+      marginTop: 10,
+    },
+    errorContainer: {
+      flex: 1,
+      justifyContent: "center",
+      alignItems: "center",
+      backgroundColor: "#263238", 
+    },
+    errorText: {
+      fontSize: 18,
+      color: "#b0bec5", 
+    },
+  });
 
 export default MovieDetailScreen;

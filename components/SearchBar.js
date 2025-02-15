@@ -16,17 +16,17 @@ const SearchBar = ({ searchQuery, setSearchQuery }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    width: "100%",
-    padding: 10,
-    backgroundColor: "#f0f0f0",
-    borderRadius: 10,
-    marginBottom: 15,
-  },
-  input: {
-    fontSize: 16,
-    color: "#000",
-  },
-});
+    container: {
+      width: "100%",
+      padding: 10,
+      backgroundColor: "#455a64", 
+      borderRadius: 10,
+      marginBottom: 15,
+    },
+    input: {
+      fontSize: 16,
+      color: "#f5f5f5", 
+    },
+  });
 
 export default SearchBar;

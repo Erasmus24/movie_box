@@ -41,18 +41,19 @@ const HomeScreen = ({ navigation }) => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    padding: 10,
-    backgroundColor: "#f5f5f5",
-  },
-  title: {
-    fontSize: 32,
-    fontWeight: "bold",
-    textAlign: "center",
-    marginBottom: 10,
-    paddingTop: 3,
-  },
-});
+    container: {
+      flex: 1,
+      padding: 10,
+      backgroundColor: "#263238", 
+    },
+    title: {
+      fontSize: 32,
+      fontWeight: "bold",
+      textAlign: "center",
+      marginBottom: 10,
+      paddingTop: 3,
+      color: "#b0bec5", 
+    },
+  });
 
 export default HomeScreen;

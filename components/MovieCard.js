@@ -18,32 +18,33 @@ const MovieCard = ({ movie, onPress }) => {
 };
 
 const styles = StyleSheet.create({
-  card: {
-    backgroundColor: "#fff",
-    borderRadius: 10,
-    padding: 10,
-    marginBottom: 15,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 4,
-    elevation: 3,
-  },
-  image: {
-    width: "100%",
-    height: 200,
-    borderRadius: 10,
-  },
-  title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 10,
-  },
-  description: {
-    fontSize: 14,
-    color: "#555",
-    marginTop: 5,
-  },
-});
+    card: {
+      backgroundColor: "#37474f", 
+      borderRadius: 10,
+      padding: 10,
+      marginBottom: 15,
+      shadowColor: "#000",
+      shadowOffset: { width: 0, height: 2 },
+      shadowOpacity: 0.2,
+      shadowRadius: 4,
+      elevation: 3,
+    },
+    image: {
+      width: "100%",
+      height: 200,
+      borderRadius: 10,
+    },
+    title: {
+      fontSize: 18,
+      fontWeight: "bold",
+      marginTop: 10,
+      color: "#b0bec5", 
+    },
+    description: {
+      fontSize: 14,
+      color: "#90a4ae", 
+      marginTop: 5,
+    },
+  });
 
 export default MovieCard;
