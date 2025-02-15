@@ -11,20 +11,23 @@ const FALLBACK_IMDB_IDS = [
 const MIN = 1000000;
 const MAX = 9999999;
 const RANGE = MAX - MIN + 1;
-
-const getRandomImdbID = () => {
-  const randomDigits = Math.floor(Math.random() * RANGE) + MIN;
-  return "tt" + randomDigits;
-};
+const getRandomImdbID = () => "tt" + (Math.floor(Math.random() * RANGE) + MIN);
 
 const FALLBACK_IMAGE = "https://images.pexels.com/photos/603580/pexels-photo-603580.jpeg?auto=compress&cs=tinysrgb&w=600";
 
-export const fetchRandomMovies = createAsyncThunk('movies/fetchRandom', async () => {
-  const movies = [];
-  const usedFallbacks = new Set();
+const shuffleArray = (array) => {
+  const shuffled = [...array];
+  for (let i = shuffled.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+  }
+  return shuffled;
+};
 
-  while (movies.length < 10) {
-    let imdbID = getRandomImdbID();
+const fetchMovies = async (imdbIds) => {
+  const movies = [];
+
+  for (const imdbID of imdbIds) {
     const url = `https://imdb.iamidiotareyoutoo.com/search?q=&tt=${imdbID}`;
 
     try {
@@ -37,35 +40,34 @@ export const fetchRandomMovies = createAsyncThunk('movies/fetchRandom', async ()
           title: data.name,
           image: data.image || FALLBACK_IMAGE,
           description: data.description || "No description available.",
+          actors: data.actor?.map(actor => actor.name).join(", ") || "Actors unavailable",
+          review: data.review?.reviewBody || "No review available",
+          reviewAuthor: data.review?.author.name || "Author unavailable",
         });
       }
     } catch (error) {
-      let fallbackImdbID;
-      do {
-        fallbackImdbID = FALLBACK_IMDB_IDS[Math.floor(Math.random() * FALLBACK_IMDB_IDS.length)];
-      } while (usedFallbacks.has(fallbackImdbID)); 
-
-      usedFallbacks.add(fallbackImdbID);
-
-      const fallbackUrl = `https://imdb.iamidiotareyoutoo.com/search?q=&tt=${fallbackImdbID}`;
-      try {
-        const fallbackResponse = await axios.get(fallbackUrl);
-        const fallbackData = fallbackResponse.data.short;
-        if (fallbackResponse.data.ok && fallbackData.name && fallbackData["@type"] === "Movie") {
-          movies.push({
-            id: fallbackImdbID,
-            title: fallbackData.name,
-            image: fallbackData.image || FALLBACK_IMAGE,
-            description: fallbackData.description || "No description available.",
-          });
-        }
-      } catch (fallbackError) {
-        // If fallback also fails, silently handle the error and skip this fallback.
-      }
+      //silent error handling
     }
   }
 
   return movies;
+};
+
+export const fetchRandomMovies = createAsyncThunk('movies/fetchRandom', async () => {
+  const randomImdbIDs = Array.from({ length: 10 }, getRandomImdbID);
+
+  const randomMoviesPromise = fetchMovies(randomImdbIDs);
+
+  const timeoutPromise = new Promise(resolve =>
+    setTimeout(async () => {
+      console.warn("Random ID's took too long. Using fallback movie ID's.");
+
+      const shuffledFallbackIDs = shuffleArray(FALLBACK_IMDB_IDS).slice(0, 10);
+      resolve(await fetchMovies(shuffledFallbackIDs));
+    }, 2000)
+  );
+
+  return Promise.race([randomMoviesPromise, timeoutPromise]);
 });
 
 const movieSlice = createSlice({
@@ -88,7 +90,7 @@ const movieSlice = createSlice({
       })
       .addCase(fetchRandomMovies.rejected, (state) => {
         state.loading = false;
-        state.error = "Failed to fetch movies";  
+        state.error = "Failed to fetch movies";
       });
   },
 });

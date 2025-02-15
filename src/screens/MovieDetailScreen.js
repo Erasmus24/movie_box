@@ -17,6 +17,18 @@ const MovieDetailScreen = ({ route }) => {
       <Image source={{ uri: movie.image }} style={styles.image} />
       <Text style={styles.title}>{movie.title}</Text>
       <Text style={styles.description}>{movie.description}</Text>
+
+      <View style={styles.actorsContainer}>
+        <Text style={styles.actorsTitle}>Actors:</Text>
+        <Text style={styles.actors}>{movie.actors || "Actors unavailable"}</Text>
+      </View>
+
+      <View style={styles.reviewContainer}>
+        <Text style={styles.reviewTitle}>Review:</Text>
+        <Text style={styles.reviewBody}>{movie.review || "No review available"}</Text>
+        <Text style={styles.reviewAuthor}>By: {movie.reviewAuthor || "Author unavailable"}</Text>
+        <Text style={styles.reviewTitleText}>Title: {movie.reviewTitle || "Review Title unavailable"}</Text>
+      </View>
     </ScrollView>
   );
 };
@@ -50,6 +62,43 @@ const styles = StyleSheet.create({
   errorText: {
     fontSize: 18,
     color: "red",
+  },
+  actorsContainer: {
+    marginTop: 20,
+  },
+  actorsTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  actors: {
+    fontSize: 16,
+    color: "#555",
+    marginTop: 5,
+  },
+  reviewContainer: {
+    marginTop: 20,
+  },
+  reviewTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: "#333",
+  },
+  reviewBody: {
+    fontSize: 16,
+    color: "#555",
+    marginTop: 5,
+  },
+  reviewAuthor: {
+    fontSize: 14,
+    color: "#888",
+    marginTop: 5,
+  },
+  reviewTitleText: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: "#888",
+    marginTop: 5,
   },
 });
 
