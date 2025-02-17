@@ -24,6 +24,8 @@ const shuffleArray = (array) => {
   return shuffled;
 };
 
+//TODO: Must make the search dynamic meaning that it must search for movies throughout the API.
+
 const fetchMovies = async (imdbIds) => {
   const movies = [];
 
